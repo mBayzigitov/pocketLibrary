@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PL < страница пользователя</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/readers/{id}(id=${person.getId()})}" th:object="${person}">
+    <div class="input-area">
+        <input type="text" th:field="*{full_name}" id="full-name" placeholder="Иванов Иван Иванович">
+        <div style="color:red" th:if="${#fields.hasErrors('full_name')}" th:errors="*{full_name}">(error)</div>
+    </div>
+
+    <div class="input-area">
+        <input type="number" th:field="*{year_of_birth}" id="year" placeholder="Год рождения">
+        <div style="color:red" th:if="${#fields.hasErrors('year_of_birth')}" th:errors="*{year_of_birth}">(error)</div>
+    </div>
+
+    <div id="bars">
+        <input type="submit" value="Обновить данные">
+        <a th:href="@{/readers}">&lt Назад</a>
+    </div>
+</form>
+
+</body>
+</html>
