@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>PL - список читателей</title>
+</head>
+<body>
+
+<h1>Список читателей</h1>
+
+<div th:each="person : ${people}">
+    <div class="reader">
+        <a th:href="@{/people/{client_id}(client_id=${person.getId()})}"
+            th:text="${person.getFull_name() + ', ' + person.getYear_of_birth()}">Reader</a>
+    </div>
+</div>
+
+<a th:href="@{/readers/new}" id="creation">Добавить читателя</a>
+
+<a id="back" th:href="@{/library}">&lt Назад</a>
+
+</body>
+</html>
