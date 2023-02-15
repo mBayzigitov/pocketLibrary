@@ -22,7 +22,7 @@ import java.util.Objects;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"config", "controllers", "dao", "models"})
+@ComponentScan(basePackages = {"config", "controllers", "dao", "models", "util"})
 @PropertySource("classpath:database.properties")
 public class SpringConfig implements WebMvcConfigurer {
 
