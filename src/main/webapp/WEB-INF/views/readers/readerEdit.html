@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<form th:method="PATCH" th:action="@{/readers/{id}(id=${person.getId()})}" th:object="${person}">
+<form th:method="PATCH" th:action="@{/readers/{id}(id=${person.getClientId()})}" th:object="${person}">
     <div class="input-area">
         <input type="text" th:field="*{full_name}" id="full-name" placeholder="Иванов Иван Иванович">
         <div style="color:red" th:if="${#fields.hasErrors('full_name')}" th:errors="*{full_name}">(error)</div>

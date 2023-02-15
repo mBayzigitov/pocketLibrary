@@ -21,7 +21,7 @@ public class Person {
         this.year_of_birth = year_of_birth;
     }
 
-    public int getId() {
+    public int getClientId() {
         return client_id;
     }
 

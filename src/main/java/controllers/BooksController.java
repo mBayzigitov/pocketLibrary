@@ -1,29 +1,30 @@
 package controllers;
 
 import dao.BooksDAO;
+import dao.PersonDAO;
 import models.Book;
+import models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import util.BookValidator;
 
-import javax.naming.Binding;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RequestMapping("/books")
 @Controller
 public class BooksController {
 
     private final BooksDAO booksDAO;
+    private final PersonDAO personDAO;
     private final BookValidator bookValidator;
 
     @Autowired
-    public BooksController(BooksDAO booksDAO, BookValidator bookValidator) {
+    public BooksController(BooksDAO booksDAO, PersonDAO personDAO, BookValidator bookValidator) {
+        this.personDAO = personDAO;
         this.bookValidator = bookValidator;
         this.booksDAO = booksDAO;
     }
@@ -52,6 +53,77 @@ public class BooksController {
         booksDAO.saveBook(book);
 
         return "redirect:/books";
+
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editReaderProfile(@PathVariable("id") int id, Model model) {
+        Optional<Book> bookWithSpecifiedId = booksDAO.findBookById(id);
+
+        if (bookWithSpecifiedId.isPresent()) {
+            model.addAttribute("book", bookWithSpecifiedId.get());
+            return "books/bookEdit";
+        } else {
+            return "books/bookNotFound";
+        }
+
+    }
+
+    @PatchMapping("/{id}/assign")
+    public String giveBook(@PathVariable("id") int book_id, @ModelAttribute("reader") Person person) {
+        booksDAO.assignBookToPerson(book_id, person.getClientId());
+        return "redirect:/books/" + book_id;
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteBook(@PathVariable("id") int book_id) {
+        booksDAO.deleteBook(book_id);
+        return "redirect:books/books";
+    }
+
+    @PatchMapping("/{id}/freeBook")
+    public String giveBook(@PathVariable("id") int book_id) {
+        booksDAO.freeBook(book_id);
+        return "books/showBook";
+    }
+
+    @PatchMapping("/{id}")
+    public String updateBook(@ModelAttribute("book") @Valid Book book,
+                               BindingResult bindingResult,
+                               @PathVariable("id") int book_id) {
+
+        book.setBook_id(book_id);
+        bookValidator.validate(book, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "books/bookEdit";
+        }
+
+        booksDAO.updateBook(book_id, book);
+
+        return "redirect:/books";
+
+    }
+
+    @GetMapping("/{id}")
+    public String showBookInfo(Model model, @PathVariable("id") int book_id) {
+
+        Optional<Book> isThereBookWithSpecifiedId = booksDAO.findBookById(book_id);
+
+        if (!isThereBookWithSpecifiedId.isPresent()) {
+            return "books/bookNotFound";
+        }
+
+        Optional<Person> owner = booksDAO.clientByBookId(book_id);
+
+        if (owner.isPresent())
+            model.addAttribute("owner", owner.get());
+        else
+            model.addAttribute("people", personDAO.getListOfReaders());
+
+        model.addAttribute("book", isThereBookWithSpecifiedId.get());
+
+        return "books/showBook";
 
     }
 

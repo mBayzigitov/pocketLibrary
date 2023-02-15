@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PL > страница пользователя</title>
+</head>
+<body>
+
+<div id="full_name" th:text="${reader.getFull_name()}"></div>
+
+<div id="empty_list" th:if="${isListEmpty == true}">Читатель на данный момент не имеет книг на руках</div>
+
+<div id="books_list" th:if="${isListEmpty == false}" th:each="book : ${hisBooks}">
+    <div class="books">
+        <a th:href="@{/books/{book_id}(book_id=${book.getBook_id()})}"
+        th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.year_of_creation}"></a>
+    </div>
+</div>
+
+<div id="bars">
+    <a th:href="@{/readers/{reader_id}/edit(reader_id=${reader.getClientId()})}" id="edit">Редактировать</a>
+    <a th:href="@{/readers}">&lt Назад</a>
+</div>
+
+</body>
+</html>

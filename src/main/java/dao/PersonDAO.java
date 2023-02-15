@@ -31,7 +31,7 @@ public class PersonDAO {
     public Optional<Person> findPersonById(int id) {
         return jdbcTemplate.query("SELECT * FROM Person WHERE client_id = ?", new Object[] {id},
                 new BeanPropertyRowMapper<>(Person.class))
-                    .stream().findFirst();
+                    .stream().findAny();
     }
 
     public void updatePerson(int id, Person person) {

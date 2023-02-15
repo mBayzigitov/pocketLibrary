@@ -1,6 +1,8 @@
 package controllers;
 
+import dao.BooksDAO;
 import dao.PersonDAO;
+import models.Book;
 import models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RequestMapping("/readers")
@@ -18,9 +21,11 @@ import java.util.Optional;
 public class PeopleController {
 
     private final PersonDAO personDAO;
+    private final BooksDAO booksDAO;
 
     @Autowired
-    public PeopleController(PersonDAO personDAO) {
+    public PeopleController(PersonDAO personDAO, BooksDAO booksDAO) {
+        this.booksDAO = booksDAO;
         this.personDAO = personDAO;
     }
 
@@ -74,6 +79,25 @@ public class PeopleController {
         personDAO.updatePerson(id, person);
 
         return "redirect:/readers";
+
+    }
+
+    @GetMapping("/{id}")
+    public String showReader(Model model, @PathVariable("id") int id) {
+        Optional<Person> isTherePersonWithSpecifiedId = personDAO.findPersonById(id);
+        List<Book> listOfReadersBooks = booksDAO.getListOfBooksOfSpecifiedReader(id);
+
+        if (!isTherePersonWithSpecifiedId.isPresent()) {
+            return "readers/readerNotFound";
+        }
+
+        boolean isListEmpty = (listOfReadersBooks.size() == 0);
+
+        model.addAttribute("reader", isTherePersonWithSpecifiedId.get());
+        model.addAttribute("hisBooks", listOfReadersBooks);
+        model.addAttribute("isListEmpty", isListEmpty);
+
+        return "readers/showReader";
 
     }
 
