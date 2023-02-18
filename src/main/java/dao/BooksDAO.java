@@ -41,7 +41,7 @@ public class BooksDAO {
     }
 
     public Optional<Book> findBookById(int id) {
-        return jdbcTemplate.query("SELECT title, author, year_of_creation FROM Book WHERE book_id = ?", new Object[] {id},
+        return jdbcTemplate.query("SELECT book_id, title, author, year_of_creation FROM Book WHERE book_id = ?", new Object[] {id},
                 new BeanPropertyRowMapper<>(Book.class))
                     .stream().findAny();
     }
@@ -59,18 +59,15 @@ public class BooksDAO {
     }
 
     public void assignBookToPerson(int book_id, int client_id) {
-        jdbcTemplate.query("UPDATE Book SET client_id = ? WHERE book_id = ?",
-                new Object[] {book_id, client_id}, new BeanPropertyRowMapper<>(Book.class));
+        jdbcTemplate.update("UPDATE Book SET client_id = ? WHERE book_id = ?", client_id, book_id);
     }
 
-    public void freeBook(int book_id) {
-        jdbcTemplate.query("UPDATE Book SET client_id = null WHERE book_id = ?",
-                new Object[] {book_id}, new BeanPropertyRowMapper<>(Book.class));
+    public void releaseBook(int book_id) {
+        jdbcTemplate.update("UPDATE Book SET client_id = null WHERE book_id = ?", book_id);
     }
 
-    public void deleteBook(int book_id) {
-        jdbcTemplate.query("DELETE FROM Book WHERE book_id = ?",
-                new Object[] {book_id}, new BeanPropertyRowMapper<>(Book.class));
+    public void removeBook(int book_id) {
+        jdbcTemplate.update("DELETE FROM Book WHERE book_id = ?", book_id);
     }
 
 }

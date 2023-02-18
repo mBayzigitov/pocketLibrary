@@ -70,21 +70,23 @@ public class BooksController {
     }
 
     @PatchMapping("/{id}/assign")
-    public String giveBook(@PathVariable("id") int book_id, @ModelAttribute("reader") Person person) {
-        booksDAO.assignBookToPerson(book_id, person.getClientId());
+    public String giveBook(@PathVariable("id") int book_id, @ModelAttribute("newReader") Person newReader) {
+        System.out.println("book_id : " + book_id + "; client_id : " + newReader.getClientId());
+        booksDAO.assignBookToPerson(book_id, newReader.getClientId());
         return "redirect:/books/" + book_id;
     }
 
     @DeleteMapping("/{id}")
-    public String deleteBook(@PathVariable("id") int book_id) {
-        booksDAO.deleteBook(book_id);
-        return "redirect:books/books";
+    public String removeBook(@PathVariable("id") int book_id) {
+        booksDAO.removeBook(book_id);
+        return "redirect:/books";
     }
 
-    @PatchMapping("/{id}/freeBook")
-    public String giveBook(@PathVariable("id") int book_id) {
-        booksDAO.freeBook(book_id);
-        return "books/showBook";
+    @PatchMapping("/{id}/release")
+    public String releaseBook(@PathVariable("id") int book_id) {
+        System.out.println(book_id);
+        booksDAO.releaseBook(book_id);
+        return "redirect:/books/" + book_id;
     }
 
     @PatchMapping("/{id}")
@@ -106,7 +108,8 @@ public class BooksController {
     }
 
     @GetMapping("/{id}")
-    public String showBookInfo(Model model, @PathVariable("id") int book_id) {
+    public String showBookInfo(Model model, @PathVariable("id") int book_id,
+                               @ModelAttribute("newReader") Person newReader) {
 
         Optional<Book> isThereBookWithSpecifiedId = booksDAO.findBookById(book_id);
 

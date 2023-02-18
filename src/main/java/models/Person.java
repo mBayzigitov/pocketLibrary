@@ -4,7 +4,7 @@ import javax.validation.constraints.*;
 
 public class Person {
 
-    private int client_id;
+    private int clientId;
 
     @Pattern(regexp = "[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+", message = "Введите ФИО по форме: Фамилия Имя Отчество")
     private String full_name;
@@ -15,18 +15,18 @@ public class Person {
 
     public Person() {}
 
-    public Person(int client_id, String full_name, int year_of_birth) {
-        this.client_id = client_id;
+    public Person(int clientId, String full_name, int year_of_birth) {
+        this.clientId = clientId;
         this.full_name = full_name;
         this.year_of_birth = year_of_birth;
     }
 
     public int getClientId() {
-        return client_id;
+        return clientId;
     }
 
-    public void setClient_id(int client_id) {
-        this.client_id = client_id;
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 
     public String getFull_name() {
@@ -48,7 +48,7 @@ public class Person {
     @Override
     public String toString() {
         return "Person{" +
-                "client_id=" + client_id +
+                "client_id=" + clientId +
                 ", full_name='" + full_name + '\'' +
                 ", year_of_birth=" + year_of_birth +
                 '}';
