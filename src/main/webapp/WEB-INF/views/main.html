@@ -3,20 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Pocket Library</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<img src="" alt="logo">
+<img src="../img/logo.png" alt="logo">
 
-<h1>Pocket Library - главная</h1>
+<h1>Библиотека<br>POCKET LIBRARY</h1>
 
-<div class="options">
-    <a th:href="@{/readers}"><h3>Список читателей</h3></a>
-</div>
+<a th:href="@{/readers}">
+    <div class="options">
+        Список читателей
+    </div>
+</a>
 
-<div class="options">
-    <a th:href="@{/books}"><h3>Список книг</h3></a>
-</div>
+<a th:href="@{/books}">
+    <div class="options">
+        Список книг
+    </div>
+</a>
 
 </body>
 </html>
