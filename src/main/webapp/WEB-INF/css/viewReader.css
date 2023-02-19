@@ -1,0 +1,56 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column wrap;
+    background-color: #091037;
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+}
+
+#profile {
+    font-size: 20px;
+    margin-top: 40px;
+}
+
+#full-name {
+    margin-top: 20px;
+    font-size: 17px;
+}
+
+#books_list {
+    text-align: center;
+}
+
+.books {
+    width: 700px;
+    border-top: 1px solid #71799b;
+    padding: 17px 5px 5px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+#bars a {
+    text-align: center;
+    display: block;
+    border: 2px solid #fff;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    border-radius: 6px;
+    color: #fff;
+    transition: 0.4s;
+    padding: 12px;
+    margin-top: 30px;
+}
+
+#bars a:hover {
+    border: 2px solid #547ab2;
+    color: #547ab2;
+    transition: 0.4s;
+}

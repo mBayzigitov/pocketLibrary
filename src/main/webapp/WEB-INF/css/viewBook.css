@@ -1,0 +1,55 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column wrap;
+    background-color: #091037;
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+}
+
+#profile {
+    font-size: 20px;
+    margin-top: 40px;
+}
+
+#bookInfo {
+    font-size: 17px;
+    margin-top: 20px;
+}
+
+#hasntOwner span {
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+#hasntOwner {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#hasntOwner select, #hasntOwner option, input {
+    font-family: 'Open Sans', sans-serif;
+    margin-top: 15px;
+    background-color: #091037;
+    border: 2px solid #fff;
+    padding: 8px;
+    border-radius: 5px;
+    color: #fff;
+    transition: 0.4s;
+}
+
+#releaseButton {
+    margin-left: 100px;
+}
+
+#deleteBook {
+    margin-left: 21px;
+}
+
+#hasntOwner select:hover, input:hover {
+    border: 2px solid #547ab2;
+    color: #547ab2;
+    transition: 0.4s;
+    cursor: pointer;
+}
