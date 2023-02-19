@@ -35,7 +35,7 @@ a {
     color: #fff;
 }
 
-#bars a {
+#bars a, input[type="submit"] {
     text-align: center;
     display: block;
     border: 2px solid #fff;
@@ -47,10 +47,12 @@ a {
     transition: 0.4s;
     padding: 12px;
     margin-top: 30px;
+    background-color: #091037;
 }
 
-#bars a:hover {
+#bars a:hover, input[type="submit"]:hover {
     border: 2px solid #547ab2;
     color: #547ab2;
     transition: 0.4s;
+    cursor: pointer;
 }

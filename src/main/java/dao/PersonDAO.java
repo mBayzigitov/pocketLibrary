@@ -28,6 +28,10 @@ public class PersonDAO {
                 person.getFull_name(), person.getYear_of_birth());
     }
 
+    public void removePerson(int client_id) {
+        jdbcTemplate.update("DELETE FROM Person WHERE client_id = ?", client_id);
+    }
+
     public Optional<Person> findPersonById(int id) {
         return jdbcTemplate.query("SELECT * FROM Person WHERE client_id = ?", new Object[] {id},
                 new BeanPropertyRowMapper<>(Person.class))

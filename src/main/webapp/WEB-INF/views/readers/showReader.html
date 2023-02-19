@@ -26,6 +26,9 @@
 
 <div id="bars">
     <a th:href="@{/readers/{reader_id}/edit(reader_id=${reader.getClientId()})}" id="edit">Редактировать</a>
+    <form th:method="DELETE" th:action="@{/readers/{id}(id=${reader.getClientId()})}">
+        <input id="deleteReader" type="submit" value="Удалить пользователя"/>
+    </form>
     <a th:href="@{/readers}">&loarr; Назад</a>
 </div>
 

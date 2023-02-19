@@ -101,5 +101,11 @@ public class PeopleController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public String removePerson(@PathVariable("id") int client_id) {
+        personDAO.removePerson(client_id);
+        return "redirect:/readers";
+    }
+
 
 }
